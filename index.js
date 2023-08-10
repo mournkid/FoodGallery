@@ -1,11 +1,10 @@
 const galleryElement = document.getElementById("image-gallery");
 
-async function fetchImage() {
+async function fetchImage(value) {
   imgs = "";
-
   try {
     await fetch(
-      `https://api.unsplash.com/search/photos?per_page=30&page=1&query=japanese-food&client_id=b1ZDS2G2jorTwN7_kiH9DPt_3c0Gkhk2Xpv-KjVaP3Y`
+      `https://api.unsplash.com/search/photos?per_page=30&page=1&query=${value}&client_id=b1ZDS2G2jorTwN7_kiH9DPt_3c0Gkhk2Xpv-KjVaP3Y`
     ).then((res) =>
       res.json().then((data) => {
         const pictures = data.results;
@@ -27,4 +26,4 @@ async function fetchImage() {
   }
 }
 
-fetchImage();
+
