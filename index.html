@@ -11,20 +11,80 @@
   </head>
   <body>
 
+    <!-- <div class="container">
+      <div class="heading">video gallery</div>  
+      <div class="video-container">
+        <div class="video">
+          <video src="./FU 10706.mov" muted></video>
+        </div>
+        <div class="video">
+          <video src="./FU 12599.mov" muted></video>
+        </div>
+        <div class="video">
+          <video src="./FU 2912.mov" muted></video>
+        </div>
+        <div class="video">
+          <video src="./FU 4468.mov" muted></video>
+        </div>
+        <div class="video">
+          <video src="./FU 7623.mov" muted></video>
+        </div>
+        <div class="video">
+          <video src="./FU 8486.mov" muted></video>
+        </div>
+      </div>    
+    </div> -->
+
     <div class="container">
       <div class="header">
-        <h2 class="heading-text">FOOD'S IMAGE GALLERY</h2>
-        <p>powered by <a href="https://unsplash.com/">unsplash</a></p>
-        <div class="categories">
-          <button class="button" value="italian-food" onclick="fetchImage(this.value)">Italian</button>
-          <button class="button" value="japanese-food" onclick="fetchImage(this.value)">Japanese</button>
-          <button class="button" value="brazilian-food" onclick="fetchImage(this.value)">Brazilian</button>
-          <button class="button" value="french-food" onclick="fetchImage(this.value)">French</button>
-        </div>
+        <h2 class="heading-text">ÁLBUM DE VÍDEOS</h2>
       </div>
       <ul id="image-gallery">
+        <li class="video">
+          <video width="320" height="240" controls >
+            <source src="./FU 10706.mov" type="video/mp4">
+          </video>          
+        </li>
+        <li class="video">
+          <video width="320" height="240" controls >
+            <source src="./FU 12599.mov" type="video/mp4">
+          </video>          
+        </li>
+        <li class="video">
+          <video width="320" height="240" controls >
+            <source src="./FU 8486.mov" type="video/mp4">
+          </video>          
+        </li>
+        <li class="video">
+          <video width="320" height="240" controls >
+            <source src="./FU 7623.mov" type="video/mp4">
+          </video>          
+        </li>
+        <li class="video">
+          <video width="320" height="240" controls >
+            <source src="./FU 4468.mov" type="video/mp4">
+          </video>          
+        </li>
+        <li class="video">
+          <video width="320" height="240" controls >
+            <source src="./FU 2912.mov" type="video/mp4">
+          </video>          
+        </li>
       </ul>
     </div>
-    <script src="index.js"></script>
+
+    <script>
+      var video = document.querySelectorAll('video');
+      video.forEach(play => play.addEventListener('click', () => {
+        play.classList.toggle('active');
+
+        if(play.paused){
+          play.play();
+        }else{
+          play.pause();
+          play.currentTime = 0;
+        }
+      }));
+    </script>
   </body>
 </html>
