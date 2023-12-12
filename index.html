@@ -11,30 +11,6 @@
   </head>
   <body>
 
-    <!-- <div class="container">
-      <div class="heading">video gallery</div>  
-      <div class="video-container">
-        <div class="video">
-          <video src="./FU 10706.mov" muted></video>
-        </div>
-        <div class="video">
-          <video src="./FU 12599.mov" muted></video>
-        </div>
-        <div class="video">
-          <video src="./FU 2912.mov" muted></video>
-        </div>
-        <div class="video">
-          <video src="./FU 4468.mov" muted></video>
-        </div>
-        <div class="video">
-          <video src="./FU 7623.mov" muted></video>
-        </div>
-        <div class="video">
-          <video src="./FU 8486.mov" muted></video>
-        </div>
-      </div>    
-    </div> -->
-
     <div class="container">
       <div class="header">
         <h2 class="heading-text">ÁLBUM DE VÍDEOS</h2>
@@ -54,7 +30,7 @@
         </div>
       </div>
       <ul id="image-gallery">
-        <li class="video">
+        <!-- <li class="video">
           <video width="320" height="240" controls >
             <source src="./FU 10706.mov" type="video/mp4">
           </video>   
@@ -89,22 +65,46 @@
             <source src="./FU 2912.mov" type="video/mp4">
           </video>  
           <p>modelo número</p>         
-        </li>
+        </li> -->
       </ul>
     </div>
 
     <script>
-      var video = document.querySelectorAll('video');
-      video.forEach(play => play.addEventListener('click', () => {
-        play.classList.toggle('active');
 
-        if(play.paused){
-          play.play();
-        }else{
-          play.pause();
-          play.currentTime = 0;
-        }
-      }));
+      videos = "";
+      const galleryElement = document.getElementById("image-gallery");
+
+      fetch("./videos.JSON")
+        .then(res => res.json())
+        .then(data => {
+          if (data) {
+            data.forEach((video) => {
+            path = JSON.stringify(video.caminho);
+            videos += `
+            <li class="video">
+              <video width="320" height="240" controls >
+                <source src=${path} type="video/mp4">
+              </video>  
+              <p>modelo número</p> 
+            </li>
+            `;
+            galleryElement.innerHTML = videos;
+            })
+            var video = document.querySelectorAll('video');
+            video.forEach(play => play.addEventListener('click', () => {
+            play.classList.toggle('active');
+
+            if(play.paused){
+              play.play();
+            }else{
+              play.pause();
+              play.currentTime = 0;
+            }
+            }));
+        }});
+
+      
+      
     </script>
   </body>
 </html>
