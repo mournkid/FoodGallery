@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scal=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Catálogo de vídeos</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,91 +20,15 @@
             <span></span>
           </label>
       
-          <ul class="menu__box">
-            <li><a class="menu__item" href="#">Separação de Ferramental</a></li>
-            <li><a class="menu__item" href="#">Macharia</a></li>
-            <li><a class="menu__item" href="#">Moldagem Resina</a></li>
-            <li><a class="menu__item" href="#">Vazamento</a></li>
-            <li><a class="menu__item" href="#">Rebarbação</a></li>
+          <ul class="menu__box" id="menu">
           </ul>
         </div>
       </div>
       <ul id="image-gallery">
-        <!-- <li class="video">
-          <video width="320" height="240" controls >
-            <source src="./FU 10706.mov" type="video/mp4">
-          </video>   
-          <p>modelo número</p>       
-        </li>
-        <li class="video">
-          <video width="320" height="240" controls >
-            <source src="./FU 12599.mov" type="video/mp4">
-          </video> 
-          <p>modelo número</p>          
-        </li>
-        <li class="video">
-          <video width="320" height="240" controls >
-            <source src="./FU 8486.mov" type="video/mp4">
-          </video>  
-          <p>modelo número</p>         
-        </li>
-        <li class="video">
-          <video width="320" height="240" controls >
-            <source src="./FU 7623.mov" type="video/mp4">
-          </video>   
-          <p>modelo número</p>        
-        </li>
-        <li class="video">
-          <video width="320" height="240" controls >
-            <source src="./FU 4468.mov" type="video/mp4">
-          </video>    
-          <p>modelo número</p>       
-        </li>
-        <li class="video">
-          <video width="320" height="240" controls >
-            <source src="./FU 2912.mov" type="video/mp4">
-          </video>  
-          <p>modelo número</p>         
-        </li> -->
       </ul>
     </div>
 
-    <script>
-
-      videos = "";
-      const galleryElement = document.getElementById("image-gallery");
-
-      fetch("https://json-static-api-mournkid.vercel.app/videos.json")
-        .then(res => res.json())
-        .then(data => {
-          if (data) {
-            data.forEach((video) => {
-            path = JSON.stringify(video.caminho);
-            videos += `
-            <li class="video">
-              <video width="320" height="240" controls >
-                <source src=${path} type="video/mp4">
-              </video>  
-              <p>modelo número</p> 
-            </li>
-            `;
-            galleryElement.innerHTML = videos;
-            })
-            var video = document.querySelectorAll('video');
-            video.forEach(play => play.addEventListener('click', () => {
-            play.classList.toggle('active');
-
-            if(play.paused){
-              play.play();
-            }else{
-              play.pause();
-              play.currentTime = 0;
-            }
-            }));
-        }});
-
-      
-      
+    <script src="index.js"> 
     </script>
   </body>
 </html>
