@@ -15,14 +15,19 @@
     <div class="container">
       <header class="navbar">
         <h1>Catálogo</h1>
-        <div class="search_bar">
+        <form autocomplete="off">
+          <div class="autocomplete" style="width:300px;">
+            <input id="myInput" type="text" name="myCountry" placeholder="Pesquisar" onkeyup="myFunction1()">
+          </div>
+        </form>
+        <!-- <div class="search_bar">
           <input 
             type="text" 
             id="search"
             onkeyup="myFunction()"
             placeholder="Pesquisar"
             />
-      </div>
+      </div> -->
         <div class="hamburger-menu">
           <input id="menu__toggle" type="checkbox" />
           <label class="menu__btn" for="menu__toggle">
