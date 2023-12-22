@@ -91,18 +91,20 @@ function myFunction(){
   var input = document.getElementById("myInput");
   var li = galleryElement.getElementsByTagName("li");
   var filter = input.value.toUpperCase();
-  for(i = 0; i < li.length; i++){
-    a = li[i].getElementsByTagName("p")[0];
-    txtValue = a.textContent || a.innerText;
-    if (txtValue.toUpperCase().indexOf(filter) > -1){
-          li[i].style.display = "";
-    }else{
-      li[i].style.display = "none";
-    }
-  }
+  nome = document.getElementById("name");
+  nome.innerHTML = "Catálogo";
   // for(i = 0; i < li.length; i++){
-  //   li[i].style.display = "";
-  // } 
+  //   a = li[i].getElementsByTagName("p")[0];
+  //   txtValue = a.textContent || a.innerText;
+  //   if (txtValue.toUpperCase().indexOf(filter) > -1){
+  //         li[i].style.display = "";
+  //   }else{
+  //     li[i].style.display = "none";
+  //   }
+  // }
+  for(i = 0; i < li.length; i++){
+    li[i].style.display = "";
+  } 
 }
 
 
@@ -182,7 +184,13 @@ function autocomplete(inp, arr) {
           /*execute a function when someone clicks on the item value (DIV element):*/
           b.addEventListener("click", function(e) {
               /*insert the value for the autocomplete text field:*/
+              myFunction();
               inp.value = this.getElementsByTagName("input")[0].value;
+              nome = document.getElementById("name");
+              nome.innerHTML = `${inp.value}`;
+              // nome.style.display = "none";
+              // catalog = document.getElementById("catalog");
+              // catalog.innerHTML = `<h1>${inp.value}</h1>`
               var a, i, txtValue;
               var filter = inp.value.toUpperCase();
               var li = galleryElement.getElementsByTagName("li");
