@@ -91,6 +91,8 @@ function myFunction(){
   var input = document.getElementById("myInput");
   var li = galleryElement.getElementsByTagName("li");
   var filter = input.value.toUpperCase();
+  nome = document.getElementById("name");
+  nome.innerHTML = "";
   // for(i = 0; i < li.length; i++){
   //   a = li[i].getElementsByTagName("p")[0];
   //   txtValue = a.textContent || a.innerText;
