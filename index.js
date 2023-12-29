@@ -64,7 +64,7 @@ async function displayVideos() {
   height = JSON.stringify(video.height);
   code = video.code;
   videos += `
-    <li class="video">
+    <li class="video" style="display: none;">
       <video width=${width} height=${height} controls >
         <source src=${path} type="video/mp4">
       </video>  
@@ -91,8 +91,6 @@ function myFunction(){
   var input = document.getElementById("myInput");
   var li = galleryElement.getElementsByTagName("li");
   var filter = input.value.toUpperCase();
-  nome = document.getElementById("name");
-  nome.innerHTML = "Catálogo";
   // for(i = 0; i < li.length; i++){
   //   a = li[i].getElementsByTagName("p")[0];
   //   txtValue = a.textContent || a.innerText;
@@ -103,7 +101,7 @@ function myFunction(){
   //   }
   // }
   for(i = 0; i < li.length; i++){
-    li[i].style.display = "";
+    li[i].style.display = "none";
   } 
 }
 

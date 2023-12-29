@@ -240,7 +240,6 @@ ul {
 .autocomplete {
   position: relative;
   display: inline-block;
-  margin-left: -500px;
   margin-top: 10px;
 }
 
