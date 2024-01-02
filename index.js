@@ -1,6 +1,7 @@
-videos = "";
+
 menuItems = ""; 
 var videosArr;
+var videosAuto;
 const codes = [];
 
 const menuElement = document.getElementById("menu");
@@ -20,6 +21,11 @@ fetch("https://json-static-api-mournkid.vercel.app/menuVideos.json")
       })
   }});
 
+  fetch("http://localhost:8080/album/autocomplete.jsp?term=6")
+  .then(res => res.json())
+  .then(data => {
+    console.log(data);
+  });
 
 
 
@@ -55,17 +61,18 @@ fetch("https://json-static-api-mournkid.vercel.app/menuVideos.json")
 //       }));
 //   }});
 
-async function displayVideos() {
-  const response = await fetch("https://json-static-api-mournkid.vercel.app/videos.json");
+async function displayVideos(url) {
+  let videos = "";
+  const response = await fetch(`http://localhost:8080/album/autocomplete.jsp?term=${url}`);
   videosArr = await response.json();
+  console.log(videosArr);
   videosArr.forEach((video) => {
-  path = JSON.stringify(video.url);
-  width = JSON.stringify(video.width);
-  height = JSON.stringify(video.height);
-  code = video.code;
+  path = JSON.stringify(video.path);
+  console.log(path);
+  code = video.label;
   videos += `
-    <li class="video" style="display: none;">
-      <video width=${width} height=${height} controls >
+    <li class="video" >
+      <video width="320" height="240" controls >
         <source src=${path} type="video/mp4">
       </video>  
       <p>${code}</p> 
@@ -109,14 +116,16 @@ function myFunction(){
 
 
 
-function myFunction1(){
-  for(i = 0; i < videosArr.length; i++){
-    codes[i] = videosArr[i].code;
+async function myFunction1(){
+  const response = await fetch("https://json-static-api-mournkid.vercel.app/videos.json");
+  videosAuto = await response.json();
+  for(i = 0; i < videosAuto.length; i++){
+    codes[i] = videosAuto[i];
   } 
 }
 
 window.addEventListener("load", (event) => {
-  displayVideos();
+  myFunction1();
 });
 
 // const galleryElement = document.getElementById("image-gallery");
@@ -170,18 +179,20 @@ function autocomplete(inp, arr) {
       setTimeout(function(){
         for (i = 0; i < arr.length; i++) {
           /*check if the item starts with the same letters as the text field value:*/
-          if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+          if (arr[i].code.substr(0, val.length).toUpperCase() == val.toUpperCase()) {
             /*create a DIV element for each matching element:*/
             b = document.createElement("DIV");
+            ex = arr[i];
             /*make the matching letters bold:*/
-            b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
-            b.innerHTML += arr[i].substr(val.length);
+            b.innerHTML = "<strong>" + arr[i].code.substr(0, val.length) + "</strong>";
+            b.innerHTML += arr[i].code.substr(val.length);
             /*insert a input field that will hold the current array item's value:*/
-            b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+            b.innerHTML += "<input type='hidden' value='" + arr[i].code + "'>";
             /*execute a function when someone clicks on the item value (DIV element):*/
             b.addEventListener("click", function(e) {
                 /*insert the value for the autocomplete text field:*/
                 myFunction();
+                displayVideos(ex.id);
                 inp.value = this.getElementsByTagName("input")[0].value;
                 nome = document.getElementById("name");
                 nome.innerHTML = `${inp.value}`;
