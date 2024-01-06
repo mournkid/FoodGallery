@@ -2,6 +2,7 @@
 menuItems = ""; 
 var videosArr;
 var videosAuto;
+var term;
 const codes = [];
 
 const menuElement = document.getElementById("menu");
@@ -21,11 +22,11 @@ fetch("https://json-static-api-mournkid.vercel.app/menuVideos.json")
       })
   }});
 
-  fetch("http://localhost:8080/album/autocomplete.jsp?term=6")
-  .then(res => res.json())
-  .then(data => {
-    console.log(data);
-  });
+  // fetch("http://localhost:8080/album/autocomplete.jsp?term=6")
+  // .then(res => res.json())
+  // .then(data => {
+  //   console.log(data);
+  // });
 
 
 
@@ -63,6 +64,7 @@ fetch("https://json-static-api-mournkid.vercel.app/menuVideos.json")
 
 async function displayVideos(url) {
   let videos = "";
+  console.log(url);
   const response = await fetch(`http://localhost:8080/album/autocomplete.jsp?term=${url}`);
   videosArr = await response.json();
   console.log(videosArr);
@@ -116,12 +118,21 @@ function myFunction(){
 
 
 
+
 async function myFunction1(){
-  const response = await fetch("https://json-static-api-mournkid.vercel.app/videos.json");
+  const response = await fetch(`http://localhost:8080/album/autocomplete.jsp?term=${term}`);
   videosAuto = await response.json();
+  console.log(videosAuto);
+  // codes = videosAuto;
   for(i = 0; i < videosAuto.length; i++){
     codes[i] = videosAuto[i];
+    if(codes.length > videosAuto.length){
+      for (j = videosAuto.length; j <= codes.length; j++){
+        codes.pop();
+      }
+    }
   } 
+  autocomplete(document.getElementById("myInput"), codes);
 }
 
 window.addEventListener("load", (event) => {
@@ -165,7 +176,8 @@ function autocomplete(inp, arr) {
       var a, b, i, val = this.value;
       /*close any already open lists of autocompleted values*/
       closeAllLists();
-
+      
+      term = val.toUpperCase();
       
       if (!val) { return false;}
       currentFocus = -1;
@@ -177,22 +189,24 @@ function autocomplete(inp, arr) {
       this.parentNode.appendChild(a);
       /*for each item in the array...*/
       setTimeout(function(){
+        
         for (i = 0; i < arr.length; i++) {
           /*check if the item starts with the same letters as the text field value:*/
-          if (arr[i].code.substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+          if (arr[i].label !== "NAO ENCONTRADO"){
             /*create a DIV element for each matching element:*/
             b = document.createElement("DIV");
-            ex = arr[i];
             /*make the matching letters bold:*/
-            b.innerHTML = "<strong>" + arr[i].code.substr(0, val.length) + "</strong>";
-            b.innerHTML += arr[i].code.substr(val.length);
+            b.innerHTML = "<strong>" + arr[i].label.substr(0, val.length) + "</strong>";
+            b.innerHTML += arr[i].label.substr(val.length);
+            ex = arr[i];
             /*insert a input field that will hold the current array item's value:*/
-            b.innerHTML += "<input type='hidden' value='" + arr[i].code + "'>";
+            b.innerHTML += "<input type='hidden' value='" + arr[i].label + "'>";
             /*execute a function when someone clicks on the item value (DIV element):*/
             b.addEventListener("click", function(e) {
                 /*insert the value for the autocomplete text field:*/
                 myFunction();
-                displayVideos(ex.id);
+                console.log(ex);
+                displayVideos(ex.label);
                 inp.value = this.getElementsByTagName("input")[0].value;
                 nome = document.getElementById("name");
                 nome.innerHTML = `${inp.value}`;
@@ -286,4 +300,4 @@ function autocomplete(inp, arr) {
 
 
 /*initiate the autocomplete function on the "myInput" element, and pass along the countries array as possible autocomplete values:*/
-autocomplete(document.getElementById("myInput"), codes);
+
